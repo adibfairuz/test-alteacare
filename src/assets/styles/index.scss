@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background: #f8f8f8;
+}
+
+.ReactModal__Content {
+    max-width: 600px;
+    max-height: 400px;
+    margin: auto;
+}
