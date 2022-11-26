@@ -1,4 +1,4 @@
-import React, {
+import {
     useCallback, useEffect, useMemo, useState,
 } from 'react';
 import getDoctorList, { Doctor } from '~/services/getDoctorList';
@@ -6,8 +6,8 @@ import Card from '~/components/Card';
 import Spinner from '~/components/Spinner';
 import Modal from '~/components/Modal';
 import { useFetch, useMounted } from '~/hooks';
-import Select from 'react-select';
-import NotFoundImage from '~/assets/images/404_not_found.svg';
+import MultiSelect from '~/components/MultiSelect';
+import NotFound from '~/components/NotFound';
 import DoctorDetail from './DoctorDetail';
 
 type OptionType = {
@@ -22,8 +22,8 @@ const DoctorList = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [filter, setFilter] = useState({
         keyword: '',
-        hospital: '',
-        specialization: ''
+        hospital: [] as string[],
+        specialization: [] as string[]
     })
 
     const mounted = useMounted()
@@ -40,7 +40,7 @@ const DoctorList = () => {
                 }
             })
         })
-        return [...new Set(temp)]
+        return temp
     }, [response])
 
     const specializations: OptionType[] = useMemo(() => {
@@ -53,7 +53,7 @@ const DoctorList = () => {
                 })
             }
         })
-        return [...new Set(temp)]
+        return temp
     }, [response])
 
     const handleClickItem = useCallback(
@@ -69,17 +69,19 @@ const DoctorList = () => {
     }, []);
 
     useEffect(() => {
-        setData(response?.data || [])
+        if (mounted) {
+            setData(response?.data || [])
+        }
     }, [response]);
 
     useEffect(() => {
         if (mounted) {
             let data = response?.data
-            if (filter.hospital) {
-                data = data?.filter((item) => item.hospital.find((hospital) => hospital.id === filter.hospital))
+            if (filter.hospital.length) {
+                data = data?.filter((item) => item.hospital.find((hospital) => filter.hospital.includes(hospital.id)))
             }
-            if (filter.specialization) {
-                data = data?.filter((item) => item.specialization.id === filter.specialization)
+            if (filter.specialization.length) {
+                data = data?.filter((item) => filter.specialization.includes(item.specialization.id))
             }
             if (filter.keyword) {
                 data = data?.filter((item) => {
@@ -106,30 +108,25 @@ const DoctorList = () => {
                         }))}
                         value={filter.keyword}
                     />
-                    <Select
-                        isClearable
-                        className="w-60 mr-4 flex-1 min-w-[10em] mb-2"
-                        placeholder="Hospital"
+                    <MultiSelect
+                        className="mr-4"
                         options={hospitals}
                         onChange={(e) => setFilter((filter) => ({
                             ...filter,
-                            hospital: e?.value || ''
+                            hospital: e?.map((item) => item.value) || []
                         }))}
                         value={
-                            hospitals.find((item) => item.value === filter.hospital)
+                            hospitals.filter((item) => filter.hospital.includes(item.value))
                         }
                     />
-                    <Select
-                        isClearable
-                        className="w-60 flex-1 min-w-[10em] mb-2"
-                        placeholder="Specialization"
+                    <MultiSelect
                         options={specializations}
                         onChange={(e) => setFilter((filter) => ({
                             ...filter,
-                            specialization: e?.value || ''
+                            specialization: e?.map((item) => item.value) || []
                         }))}
                         value={
-                            specializations.find((item) => item.value === filter.specialization)
+                            specializations.filter((item) => filter.specialization.includes(item.value))
                         }
                     />
                 </div>
@@ -149,20 +146,8 @@ const DoctorList = () => {
                     ))
                 }
             </div>
-            {
-                !data?.length && !isLoading && (
-                    <div className="flex justify-center">
-                        <img
-                            className="w-72 md:w-96"
-                            src={NotFoundImage}
-                            alt="not found"
-                        />
-                    </div>
-                )
-            }
-            <div className="flex justify-center w-full">
-                { isLoading && <Spinner /> }
-            </div>
+            { !data?.length && !isLoading && <NotFound /> }
+            { isLoading && <Spinner /> }
             <Modal
                 isOpen={isOpenModal}
                 onRequestClose={() => setIsOpenModal(false)}
