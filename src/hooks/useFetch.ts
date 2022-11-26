@@ -12,7 +12,7 @@ interface Result<R> {
 }
 type Fetch<T, R> = [result: Result<R>, fetch: Handler<T, R>]
 
-const useFetch = <T, R>(callback: Handler<T, R>) => {
+const useFetch = <T, R>(handler: Handler<T, R>) => {
     const [response, setResponse] = useState<R>()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
@@ -20,7 +20,7 @@ const useFetch = <T, R>(callback: Handler<T, R>) => {
     const doFetch = async (params: T) => {
         try {
             setIsLoading(true)
-            const res = await callback(params)
+            const res = await handler(params)
             setResponse(res)
         } catch (error) {
             setError(error as any)
