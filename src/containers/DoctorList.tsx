@@ -83,11 +83,7 @@ const DoctorList = () => {
             }
             if (filter.keyword) {
                 data = data?.filter((item) => {
-                    return (
-                        item.name.toLowerCase().includes(filter.keyword.toLocaleLowerCase())
-                        || item.about.toLowerCase().includes(filter.keyword.toLocaleLowerCase())
-                        || item.price.formatted.toLowerCase().includes(filter.keyword.toLocaleLowerCase())
-                    )
+                    return item.name.toLowerCase().includes(filter.keyword.toLocaleLowerCase())
                 })
             }
             setData(data || response?.data || [])
