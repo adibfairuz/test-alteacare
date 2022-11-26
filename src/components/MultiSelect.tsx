@@ -10,6 +10,7 @@ interface Props {
     options: OptionType[]
     value: OptionType[]
     className?: string
+    placeholder: string
     onChange: ((newValue: MultiValue<OptionType>, actionMeta: ActionMeta<OptionType>) => void) | undefined
 }
 
@@ -18,14 +19,15 @@ const MultiSelect: React.FC<Props> = (props) => {
         options,
         value,
         onChange,
-        className = ''
+        className = '',
+        placeholder
     } = props
     return (
         <Select
             isMulti
             isClearable
             className={`w-60 flex-1 min-w-[10em] mb-2 ${className}`}
-            placeholder="Specialization"
+            placeholder={placeholder}
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             options={options}

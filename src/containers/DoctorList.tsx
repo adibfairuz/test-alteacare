@@ -109,6 +109,7 @@ const DoctorList = () => {
                         value={filter.keyword}
                     />
                     <MultiSelect
+                        placeholder="Hospital"
                         className="mr-4"
                         options={hospitals}
                         onChange={(e) => setFilter((filter) => ({
@@ -120,6 +121,7 @@ const DoctorList = () => {
                         }
                     />
                     <MultiSelect
+                        placeholder="Specialization"
                         options={specializations}
                         onChange={(e) => setFilter((filter) => ({
                             ...filter,
