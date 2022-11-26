@@ -41,7 +41,7 @@ const Modal: React.FC<Props> = (props) => {
                 { children }
             </div>
         </ReactModal>
-    );
-};
+    )
+}
 
-export default Modal;
+export default Modal

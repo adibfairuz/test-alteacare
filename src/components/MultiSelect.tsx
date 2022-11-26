@@ -10,7 +10,7 @@ interface Props {
     options: OptionType[]
     value: OptionType[]
     className?: string
-    onChange: ((newValue: MultiValue<any>, actionMeta: ActionMeta<any>) => void) | undefined
+    onChange: ((newValue: MultiValue<OptionType>, actionMeta: ActionMeta<OptionType>) => void) | undefined
 }
 
 const MultiSelect: React.FC<Props> = (props) => {

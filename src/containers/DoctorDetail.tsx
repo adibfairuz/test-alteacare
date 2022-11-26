@@ -1,7 +1,7 @@
 import React from 'react'
 import { Doctor } from '~/services/getDoctorList'
-import { BiBriefcase } from 'react-icons/bi';
-import { FaRegHospital } from 'react-icons/fa';
+import { BiBriefcase } from 'react-icons/bi'
+import { FaRegHospital } from 'react-icons/fa'
 
 interface Props {
     className?: string
@@ -12,7 +12,7 @@ const DoctorDetail: React.FC<Props> = (props) => {
     const {
         className = '',
         item,
-    } = props;
+    } = props
 
     return (
         <div
@@ -50,7 +50,7 @@ const DoctorDetail: React.FC<Props> = (props) => {
                 dangerouslySetInnerHTML={{ __html: item?.about as string }}
             />
         </div>
-    );
-};
+    )
+}
 
-export default DoctorDetail;
+export default DoctorDetail

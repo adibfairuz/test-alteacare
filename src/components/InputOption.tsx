@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { components, OptionProps } from 'react-select'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
     isFocused: boolean
     isSelected: boolean
     children: React.ReactNode
-    innerProps: any
+    innerProps: JSX.IntrinsicElements['div']
     getStyles: any
     rest?: OptionProps
 }
@@ -20,16 +20,16 @@ const InputOption: React.FC<Props> = ({
     innerProps,
     ...rest
 }) => {
-    const [isActive, setIsActive] = useState(false);
-    const onMouseDown = () => setIsActive(true);
-    const onMouseUp = () => setIsActive(false);
-    const onMouseLeave = () => setIsActive(false);
+    const [isActive, setIsActive] = useState(false)
+    const onMouseDown = () => setIsActive(true)
+    const onMouseUp = () => setIsActive(false)
+    const onMouseLeave = () => setIsActive(false)
 
-    let bg = 'transparent';
-    if (isFocused) { bg = 'bg-gray-200'; }
-    if (isActive) { bg = 'bg-blue-200'; }
+    let bg = 'transparent'
+    if (isFocused) { bg = 'bg-gray-200' }
+    if (isActive) { bg = 'bg-blue-200' }
 
-    const className = `flex items-center ${bg}`;
+    const className = `flex items-center ${bg}`
 
     // prop assignment
     const props = {
@@ -38,11 +38,11 @@ const InputOption: React.FC<Props> = ({
         onMouseUp,
         onMouseLeave,
         className
-    };
+    }
 
     return (
         <components.Option
-            {...rest as any}
+            {...rest as OptionProps}
             isDisabled={isDisabled}
             isFocused={isFocused}
             isSelected={isSelected}
@@ -56,7 +56,7 @@ const InputOption: React.FC<Props> = ({
             />
             {children}
         </components.Option>
-    );
-};
+    )
+}
 
 export default InputOption

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Doctor } from '~/services/getDoctorList'
-import { FaRegHospital } from 'react-icons/fa';
+import { FaRegHospital } from 'react-icons/fa'
 
 interface Props {
     className?: string
@@ -13,7 +13,7 @@ const Card = React.memo<Props>((props) => {
         className = '',
         item,
         onClick,
-    } = props;
+    } = props
 
     return (
         <div
@@ -50,7 +50,7 @@ const Card = React.memo<Props>((props) => {
                 </div>
             </div>
         </div>
-    );
-});
+    )
+})
 
-export default Card;
+export default Card

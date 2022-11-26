@@ -263,7 +263,7 @@ const Spinner: React.FC<Props> = ({ id }) => {
                 </g>
             </svg>
         </div>
-    );
-};
+    )
+}
 
-export default Spinner;
+export default Spinner

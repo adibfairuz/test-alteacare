@@ -1,25 +1,25 @@
 import {
     useCallback, useEffect, useMemo, useState,
-} from 'react';
-import getDoctorList, { Doctor } from '~/services/getDoctorList';
-import Card from '~/components/Card';
-import Spinner from '~/components/Spinner';
-import Modal from '~/components/Modal';
-import { useFetch, useMounted } from '~/hooks';
-import MultiSelect from '~/components/MultiSelect';
-import NotFound from '~/components/NotFound';
-import DoctorDetail from './DoctorDetail';
+} from 'react'
+import getDoctorList, { Doctor } from '~/services/getDoctorList'
+import Card from '~/components/Card'
+import Spinner from '~/components/Spinner'
+import Modal from '~/components/Modal'
+import { useFetch, useMounted } from '~/hooks'
+import MultiSelect from '~/components/MultiSelect'
+import NotFound from '~/components/NotFound'
+import DoctorDetail from './DoctorDetail'
 
 type OptionType = {
     label: string
     value: string
-};
+}
 
 const DoctorList = () => {
     const [{ response, isLoading }, fetchDoctorList] = useFetch(getDoctorList)
-    const [data, setData] = useState<Doctor[]>([]);
-    const [selectedItem, setSelectedItem] = useState<Doctor | undefined>();
-    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [data, setData] = useState<Doctor[]>([])
+    const [selectedItem, setSelectedItem] = useState<Doctor | undefined>()
+    const [isOpenModal, setIsOpenModal] = useState(false)
     const [filter, setFilter] = useState({
         keyword: '',
         hospital: [] as string[],
@@ -58,21 +58,21 @@ const DoctorList = () => {
 
     const handleClickItem = useCallback(
         (item: Doctor) => {
-            setSelectedItem(item);
-            setIsOpenModal(true);
+            setSelectedItem(item)
+            setIsOpenModal(true)
         },
         [],
-    );
+    )
 
     useEffect(() => {
-        fetchDoctorList();
-    }, []);
+        fetchDoctorList()
+    }, [])
 
     useEffect(() => {
         if (mounted) {
             setData(response?.data || [])
         }
-    }, [response]);
+    }, [response])
 
     useEffect(() => {
         if (mounted) {
@@ -90,7 +90,7 @@ const DoctorList = () => {
             }
             setData(data || response?.data || [])
         }
-    }, [filter]);
+    }, [filter])
 
     return (
         <div className="container mx-auto">
@@ -155,7 +155,7 @@ const DoctorList = () => {
                 <DoctorDetail item={selectedItem as Doctor} />
             </Modal>
         </div>
-    );
-};
+    )
+}
 
-export default DoctorList;
+export default DoctorList

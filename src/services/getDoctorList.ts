@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { Response } from './types';
+import axios from 'axios'
+import { Response } from './types'
 
 export interface Doctor {
     doctor_id: string;
@@ -48,8 +48,8 @@ export interface Specialization {
 }
 
 const getDoctorList = async () => {
-    const res = await axios.get<Response<Doctor[]>>('https://run.mocky.io/v3/c9a2b598-9c93-4999-bd04-0194839ef2dc');
-    return res.data;
-};
+    const res = await axios.get<Response<Doctor[]>>('https://run.mocky.io/v3/c9a2b598-9c93-4999-bd04-0194839ef2dc')
+    return res.data
+}
 
-export default getDoctorList;
+export default getDoctorList

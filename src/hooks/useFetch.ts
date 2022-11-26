@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 // T is parameter type
 // R is response type
@@ -13,22 +13,22 @@ interface Result<R> {
 type Fetch<T, R> = [result: Result<R>, fetch: Handler<T, R>]
 
 const useFetch = <T, R>(callback: Handler<T, R>) => {
-    const [response, setResponse] = useState<R>();
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
+    const [response, setResponse] = useState<R>()
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState()
 
     const doFetch = async (params: T) => {
         try {
             setIsLoading(true)
-            const res = await callback(params);
+            const res = await callback(params)
             setResponse(res)
         } catch (error) {
             setError(error as any)
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
-    };
-    return [{ response, error, isLoading }, doFetch] as Fetch<T, R>;
-};
+    }
+    return [{ response, error, isLoading }, doFetch] as Fetch<T, R>
+}
 
-export default useFetch;
+export default useFetch
